@@ -24,7 +24,7 @@ class Status extends Component {
 
 Status.propTypes = {
   fetchData: PropTypes.func.isRequired,
-  status: PropTypes.object,
+  // status: PropTypes.oneOf([PropTypes.array, PropTypes.object]),
   hasErrored: PropTypes.bool.isRequired,
   isLoading: PropTypes.bool.isRequired
 };

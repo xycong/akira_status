@@ -21,7 +21,7 @@ export function statusIsLoading(state = false, action) {
   }
 }
 
-export function status(state = null, action) {
+export function status(state = [], action) {
   switch (action.type) {
     case types.STATUS_FETCH_SUCCESS:
       console.log("status(reducer)", action.status);
