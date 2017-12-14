@@ -8,3 +8,7 @@
 
 The most time was spent on trying to get material-ui-react to work
 the way I laid out, before deciding to switch to semantic-ui-react.
+
+### Things I would like to work on in the future:
+* Transitions
+* Header bar w/ logo
