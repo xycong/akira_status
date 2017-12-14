@@ -1,7 +1,9 @@
+import * as types from '../actions/actionTypes';
+
 // Reducers named after result store's state property
 export function statusHasErrored(state = false, action) {
   switch (action.type) {
-    case 'STATUS_HAS_ERRORED':
+    case types.STATUS_HAS_ERRORED:
       return action.hasErrored;
     // Return the original state if action is not applicable
     default:
@@ -11,7 +13,7 @@ export function statusHasErrored(state = false, action) {
 
 export function statusIsLoading(state = false, action) {
   switch (action.type) {
-    case 'STATUS_IS_LOADING':
+    case types.STATUS_IS_LOADING:
       return action.isLoading;
 
     default:
@@ -19,9 +21,10 @@ export function statusIsLoading(state = false, action) {
   }
 }
 
-export function status(state = [], action) {
+export function status(state = null, action) {
   switch (action.type) {
-    case 'STATUS_FETCH_DATA_SUCCESS':
+    case types.STATUS_FETCH_SUCCESS:
+      console.log("status(reducer)", action.status);
       return action.status;
 
     default:

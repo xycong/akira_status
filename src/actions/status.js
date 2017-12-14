@@ -1,20 +1,22 @@
+import * as types from './actionTypes';
+
 export function statusHasErrored(bool) {
   return {
-    type: 'STATUS_HAS_ERRORED',
+    type: types.STATUS_HAS_ERRORED,
     hasErrored: bool
   };
 }
 
 export function statusIsLoading(bool) {
   return {
-    type: 'STATUS_IS_LOADING',
+    type: types.STATUS_IS_LOADING,
     isLoading: bool
   };
 }
 
 export function statusFetchSuccess(status) {
   return {
-    type: 'STATUS_FETCH_SUCCESS',
+    type: types.STATUS_FETCH_SUCCESS,
     status
   };
 }
@@ -34,7 +36,10 @@ export function statusFetchData(url) {
         return response;
       })
       .then((response) => response.json())
-      .then((status) => dispatch(statusFetchSuccess(status)))
+      .then((status) => {
+        console.log("statusFetchData", status);
+        dispatch(statusFetchSuccess(status))
+      })
       .catch(() => dispatch(statusHasErrored(true)));
   };
 }

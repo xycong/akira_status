@@ -10,20 +10,21 @@ class Status extends Component {
 
   render() {
     if (this.props.hasErrored) {
-      return <p>Sorry! There was an error loading the items</p>;
+      return <p>Sorry! There was an error loading the system status.</p>;
     }
 
     if (this.props.isLoading) {
       return <p>Loading…</p>;
     }
 
+    console.log("render", this.props.status);
     return null;
   }
 }
 
 Status.propTypes = {
   fetchData: PropTypes.func.isRequired,
-  status: PropTypes.array.isRequired,
+  status: PropTypes.object,
   hasErrored: PropTypes.bool.isRequired,
   isLoading: PropTypes.bool.isRequired
 };
