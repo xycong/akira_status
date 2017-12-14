@@ -8,22 +8,35 @@ class Status extends Component {
       online: null,
       is_open: null,
       open_hours_today: null,
+      isLoading: false,
+      hasErrored: false,
     };
   }
 
   componentDidMount() {
-    let url = 'https://app.akira.md/api/system_status';
-    
+    this.fetchData('https://app.akira.md/api/system_status');
+  }
+
+  fetchData(url) {
+    this.setState({ isLoading: true });
+
     fetch(url)
-    .then(response => {
-      response.json().then(data => {
-        this.setState({
-          online: data.online,
-          is_open: data.is_open_for_business,
-          open_hours_today: data.open_hours_today,
-        });
-      });
-    });
+      .then(response => {
+        if (!response.ok) {
+          throw Error(response.statusText);
+        }
+
+        this.setState({ isLoading: false });
+
+        return response;
+      })
+      .then(response => response.json())
+      .then(data => this.setState({
+        online: data.online,
+        is_open: data.is_open_for_business,
+        open_hours_today: data.open_hours_today,
+      }))
+      .catch(() => this.setState({ hasErrored: true }));
   }
 
   render() {
