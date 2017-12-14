@@ -3,7 +3,6 @@ import './App.css';
 
 import TitleHeader from '../components/TitleHeader';
 import Status from '../components/Status';
-import StatusCard from '../components/StatusCard';
 
 class App extends Component {
 
@@ -11,7 +10,7 @@ class App extends Component {
     return (
       <div className="App">
         <TitleHeader />
-        <StatusCard />
+        <Status />
       </div>
     );
   }
