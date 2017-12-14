@@ -40,7 +40,13 @@ class Status extends Component {
   }
 
   render() {
-    return null;
+    if (this.state.hasErrored) {
+      return <p>Sorry! There was an error loading the items</p>;
+    }
+
+    if (this.state.isLoading) {
+      return <p>Loading…</p>;
+    }
   }
 }
 
