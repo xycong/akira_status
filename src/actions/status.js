@@ -21,6 +21,7 @@ export function statusFetchSuccess(status) {
   };
 }
 
+// Only need to expose this function
 export function statusFetchData(url) {
   return (dispatch) => {
     dispatch(statusIsLoading(true));
@@ -37,7 +38,6 @@ export function statusFetchData(url) {
       })
       .then((response) => response.json())
       .then((status) => {
-        console.log("statusFetchData", status);
         dispatch(statusFetchSuccess(status))
       })
       .catch(() => dispatch(statusHasErrored(true)));

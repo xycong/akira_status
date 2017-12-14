@@ -13,7 +13,6 @@ class Status extends Component {
   }
 
   render() {
-
     if (this.props.hasErrored) {
       return <p>Sorry! There was an error loading the system status.</p>;
     }
@@ -28,13 +27,14 @@ class Status extends Component {
       return null;
     }
 
-    console.log("render", this.props.status);
+    // Time formatting
     let openHours = this.props.status.open_hours_today;
     let startTime = moment(openHours.open_at).format('h:mma');
     let endTime = moment(openHours.close_at).format('h:mma');
     let systemTime = moment(this.props.status.system_time).format('h:mm:ss a');
 
     return (
+      // TODO: Work on adding transitions
       <Transition animation='fade up' duration='500' visible>
         <Card centered>
           <Card.Content header={this.props.status.is_open_for_business ? "We're open!" : "Sorry! We're closed at the moment..."} />
@@ -49,7 +49,6 @@ class Status extends Component {
         </Card>
       </Transition>
     );
-    // return null;
   }
 }
 
