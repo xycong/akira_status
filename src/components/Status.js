@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
-
+import { dataIsLoading, dataFetchSuccess, dataHasErrored } from '../actions/data';
+import { connect } from 'react-redux';
+import { fetchData } from '../actions/items';
 class Status extends Component {
   constructor() {
     super();
@@ -17,28 +19,6 @@ class Status extends Component {
     this.fetchData('https://app.akira.md/api/system_status');
   }
 
-  fetchData(url) {
-    this.setState({ isLoading: true });
-
-    fetch(url)
-      .then(response => {
-        if (!response.ok) {
-          throw Error(response.statusText);
-        }
-
-        this.setState({ isLoading: false });
-
-        return response;
-      })
-      .then(response => response.json())
-      .then(data => this.setState({
-        online: data.online,
-        is_open: data.is_open_for_business,
-        open_hours_today: data.open_hours_today,
-      }))
-      .catch(() => this.setState({ hasErrored: true }));
-  }
-
   render() {
     if (this.state.hasErrored) {
       return <p>Sorry! There was an error loading the items</p>;
@@ -47,6 +27,8 @@ class Status extends Component {
     if (this.state.isLoading) {
       return <p>Loading…</p>;
     }
+
+    return null;
   }
 }
 
