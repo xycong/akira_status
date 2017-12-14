@@ -6,3 +6,5 @@
 * semantic-ui-react: https://react.semantic-ui.com/
 * react-live-clock: https://github.com/pvoznyuk/react-live-clock
 
+The most time was spent on trying to get material-ui-react to work
+the way I laid out, before deciding to switch to semantic-ui-react.
