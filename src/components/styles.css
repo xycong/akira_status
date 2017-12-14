@@ -1,0 +1,23 @@
+.Header-primary {
+  color: darkseagreen;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.Header-secondary {
+  color: darkslategray;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+/***** Fade in on a page load *****/
+.fadeInLoad {
+  animation: fadeInLoad 2s;
+}
+
+@keyframes fadeInLoad {
+  from {
+      opacity:0;
+  }
+  to {
+      opacity:1;
+  }
+}

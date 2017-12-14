@@ -5,8 +5,8 @@ import { connect } from 'react-redux';
 import { statusFetchData } from '../actions/status';
 import { Card, Icon, Loader, Transition } from 'semantic-ui-react'
 import Clock from 'react-live-clock';
-let moment = require('moment');
-
+import './styles.css'
+var moment = require('moment');
 class Status extends Component {
   componentDidMount() {
     this.props.fetchData('https://app.akira.md/api/system_status');
@@ -28,18 +28,18 @@ class Status extends Component {
     }
 
     // Time formatting
-    let openHours = this.props.status.open_hours_today;
-    let startTime = moment(openHours.open_at).format('h:mma');
-    let endTime = moment(openHours.close_at).format('h:mma');
-    let systemTime = moment(this.props.status.system_time).format('h:mm:ss a');
+    var openHours = this.props.status.open_hours_today;
+    var startTime = moment(openHours.open_at).format('h:mma');
+    var endTime = moment(openHours.close_at).format('h:mma');
+    var systemTime = moment(this.props.status.system_time).format('h:mm:ss a');
 
     return (
       // TODO: Work on adding transitions
-      <Transition animation='fade up' duration='500' visible>
+      <div className="fadeInLoad">
         <Card centered>
           <Card.Content header={this.props.status.is_open_for_business ? "We're open!" : "Sorry! We're closed at the moment..."} />
           <Card.Content>
-            <h1><Clock format={'h:mm:ss a'} ticking={true} timezone={'US/Eastern'} /></h1>
+            <h1 className="Header-secondary"><Clock format={'h:mm:ss a'} ticking={true} timezone={'US/Eastern'} /></h1>
             <p>Last updated: {systemTime}</p>
           </Card.Content>
           <Card.Content extra>
@@ -47,7 +47,7 @@ class Status extends Component {
             Today's Hours: {startTime} to {endTime}
           </Card.Content>
         </Card>
-      </Transition>
+      </div>
     );
   }
 }
