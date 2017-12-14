@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 // Only need to import one action creator, handles dispatching all other actions
 import { statusFetchData } from '../actions/status';
@@ -19,6 +20,13 @@ class Status extends Component {
     return null;
   }
 }
+
+Status.propTypes = {
+  fetchData: PropTypes.func.isRequired,
+  staus: PropTypes.array.isRequired,
+  hasErrored: PropTypes.bool.isRequired,
+  isLoading: PropTypes.bool.isRequired
+};
 
 const mapStateToProps = (state) => {
   return {

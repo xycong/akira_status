@@ -19,17 +19,9 @@ export function statusFetchSuccess(status) {
   };
 }
 
-export function errorAfterFiveSeconds() {
-  return (dispatch) => {
-    setTimeOut(() => {
-      dispatch(statusHasErrored(true));
-    }, 5000);
-  };
-}
-
 export function statusFetchData(url) {
   return (dispatch) => {
-    dispatch(dataIsLoading(true));
+    dispatch(statusIsLoading(true));
   }
 
   fetch(url)
@@ -38,11 +30,11 @@ export function statusFetchData(url) {
         throw Error(response.statusText);
       }
 
-      dispatch(itemsIsLoading(false));
+      dispatch(statusIsLoading(false));
 
       return response;
     })
     .then((response) => response.json())
-    .then((status) => dispatch(dataFetchSuccess(status)))
-    .catch(() => dispatch(dataHasErrored(true)));
+    .then((status) => dispatch(statusFetchSuccess(status)))
+    .catch(() => dispatch(statusHasErrored(true)));
 }
