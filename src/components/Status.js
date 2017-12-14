@@ -1,34 +1,46 @@
 import React, { Component } from 'react';
-
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+// Only need to import one action creator, handles dispatching all other actions
+import { statusFetchData } from '../actions/status';
 class Status extends Component {
-  constructor() {
-    super();
-
-    this.state = {
-      online: null,
-      is_open: null,
-      open_hours_today: null,
-    };
-  }
-
   componentDidMount() {
-    let url = 'https://app.akira.md/api/system_status';
-    
-    fetch(url)
-    .then(response => {
-      response.json().then(data => {
-        this.setState({
-          online: data.online,
-          is_open: data.is_open_for_business,
-          open_hours_today: data.open_hours_today,
-        });
-      });
-    });
+    this.props.fetchData('https://app.akira.md/api/system_status');
   }
 
   render() {
+    if (this.props.hasErrored) {
+      return <p>Sorry! There was an error loading the items</p>;
+    }
+
+    if (this.props.isLoading) {
+      return <p>Loading…</p>;
+    }
+
     return null;
   }
 }
 
-export default Status;
+Status.propTypes = {
+  fetchData: PropTypes.func.isRequired,
+  status: PropTypes.array.isRequired,
+  hasErrored: PropTypes.bool.isRequired,
+  isLoading: PropTypes.bool.isRequired
+};
+
+const mapStateToProps = (state) => {
+  return {
+    status: state.status,
+    hasErrored: state.statusHasErrored,
+    isLoading: state.statusIsLoading
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    fetchData: (url) => dispatch(statusFetchData(url))
+  };
+};
+
+// Connect the component to the Redux store
+export default connect(mapStateToProps, mapDispatchToProps)(Status);
