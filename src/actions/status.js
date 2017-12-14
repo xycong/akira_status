@@ -22,19 +22,19 @@ export function statusFetchSuccess(status) {
 export function statusFetchData(url) {
   return (dispatch) => {
     dispatch(statusIsLoading(true));
-  }
 
-  fetch(url)
-    .then(response => {
-      if (!response.ok) {
-        throw Error(response.statusText);
-      }
+    fetch(url)
+      .then(response => {
+        if (!response.ok) {
+          throw Error(response.statusText);
+        }
 
-      dispatch(statusIsLoading(false));
+        dispatch(statusIsLoading(false));
 
-      return response;
-    })
-    .then((response) => response.json())
-    .then((status) => dispatch(statusFetchSuccess(status)))
-    .catch(() => dispatch(statusHasErrored(true)));
+        return response;
+      })
+      .then((response) => response.json())
+      .then((status) => dispatch(statusFetchSuccess(status)))
+      .catch(() => dispatch(statusHasErrored(true)));
+  };
 }
