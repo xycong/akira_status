@@ -1,30 +1,18 @@
 import React, { Component } from 'react';
-import { dataIsLoading, dataFetchSuccess, dataHasErrored } from '../actions/data';
 import { connect } from 'react-redux';
-import { fetchData } from '../actions/items';
+// Only need to import one action creator, handles dispatching all other actions
+import { statusFetchData } from '../actions/status';
 class Status extends Component {
-  constructor() {
-    super();
-
-    this.state = {
-      online: null,
-      is_open: null,
-      open_hours_today: null,
-      isLoading: false,
-      hasErrored: false,
-    };
-  }
-
   componentDidMount() {
-    this.fetchData('https://app.akira.md/api/system_status');
+    this.props.fetchData('https://app.akira.md/api/system_status');
   }
 
   render() {
-    if (this.state.hasErrored) {
+    if (this.props.hasErrored) {
       return <p>Sorry! There was an error loading the items</p>;
     }
 
-    if (this.state.isLoading) {
+    if (this.props.isLoading) {
       return <p>Loading…</p>;
     }
 
@@ -32,4 +20,19 @@ class Status extends Component {
   }
 }
 
-export default Status;
+const mapStateToProps = (state) => {
+  return {
+    status: state.status,
+    hasErrored: state.statusHasErrored,
+    isLoading: state.statusIsLoading
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    fetchData: (url) => dispatch(statusFetchData(url))
+  };
+};
+
+// Connect the component to the Redux store
+export default connect(mapStateToProps, mapDispatchToProps)(Status);
